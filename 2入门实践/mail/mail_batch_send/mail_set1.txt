@@ -1,0 +1,6 @@
+mail_host=smtp.163.com
+mail_user=tochenwei@163.com
+mail_pass=workanddream
+mail_postfix=163.com
+mail_subject=testsubject
+mail_content=很高兴认识你们

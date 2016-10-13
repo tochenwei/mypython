@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>欢迎光临</title>
+</head>
+<body>
+<!--一般的变量之类的用 { { } }（变量），功能类的，比如循环，条件判断是用 { %  % }（标签）-->
+欢迎光临,这是首页模板home.html
+{{ string }}
+<br/>
+教程列表：
+<ul>
+{% for i in TutorialList %}
+    <li>
+    {{ i }}
+    </li>
+{% endfor %}
+</ul>
+
+站点：{{ info_dict.site }} 内容：{{ info_dict.content }}
+<hr/>
+<!--
+在for循环中还有很多有用的东西，如下：
+
+变量	描述
+forloop.counter	索引从 1 开始算
+forloop.counter0	索引从 0 开始算
+forloop.revcounter	索引从最大长度到 1
+forloop.revcounter0	索引从最大长度到 0
+forloop.first	当遍历的元素为第一项时为真
+forloop.last	当遍历的元素为最后一项时为真
+forloop.parentloop	
+用在嵌套的 for 循环中，
+
+获取上一层 for 循环的 forloop
+
+当列表中可能为空值时用 for  empty
+-->
+{% for item in List %}
+    {{ item }}{% if not forloop.last%},{% endif %}
+{% empty %}
+    <li>抱歉，列表为空</li>
+{% endfor %}
+<hr/>
+<a href="{% url 'add2' 4 5 %}">超链接</a>
+<hr/>
+6.1、   ==, !=, >=, <=, >, < 这些比较都可以在模板中使用，比如：
+
+{% if var >= 90 %}
+成绩优秀，自强学堂你没少去吧！学得不错
+{% elif var >= 80 %}
+成绩良好
+{% elif var >= 70 %}
+成绩一般
+{% elif var >= 60 %}
+需要努力
+{% else %}
+不及格啊，大哥！多去自强学堂学习啊！
+{% endif %}
+<br/>
+and, or, not, in, not in 也可以在模板中使用
+
+假如我们判断 num 是不是在 0 到 100 之间：
+{% if num <= 100 and num >= 0 %}
+num在0到100之间
+{% else %}
+数值不在范围之内！
+{% endif %}
+<br/>
+假如我们判断 'ziqiangxuetang' 在不在一个列表变量 List 中：
+{% if 'ziqiangxuetang' in List %}
+自强学堂在名单中
+{% endif %}
+<hr/>
+{{ request.user }}
+{% if request.user.is_authenticated %}
+    {{ request.user.username }}，您好！
+{% else %}
+    请登陆，这里放登陆链接
+{% endif %}
+{{ request.path }}
+{{ request.GET.urlencode }}
+<a href="{{ request.path }}?{{ request.GET.urlencode }}&delete=1">当前网址加参数 delete</a>
+</body>
+</html>
